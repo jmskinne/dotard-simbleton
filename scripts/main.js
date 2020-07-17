@@ -1,4 +1,5 @@
-import {businessCollection} from "./BusinessProvider.js"
+import {businessCollection } from "./BusinessProvider.js"
+
 
 const completeBusinessList = businessCollection()
 
@@ -109,3 +110,74 @@ const ManuWeb = (manufacturingArray) => {
 }
 
 ManufacturingBusiness()
+
+
+//beginning agent
+
+const agentsOnly = completeBusinessList.map(businessArray => ({ 
+    firstName : businessArray.purchasingAgent.nameFirst,
+    lastName : businessArray.purchasingAgent.nameLast,
+    company : businessArray.companyName,
+    phone : businessArray.phoneWork
+
+    
+  }))
+
+const agentHTMLTarget = document.querySelector(".agent")
+
+const AgentBusiness = () => {
+    agentHTMLTarget.innerHTML = "<h2>Agent Info<h2>"
+    agentsOnly.forEach(
+        (agentArray) => {
+            agentHTMLTarget.innerHTML += AgentWeb(agentArray)
+        }
+    )
+}
+
+const AgentWeb = (agentArray) => {
+    return `
+        <article class="agents">
+            <div class="agent__name">${agentArray.firstName} ${agentArray.lastName}</div>
+            <div class="agent__company>${agentArray.company}</div>
+            <div class="agent__phone>${agentArray.phone}</div>
+        </article>
+    `
+}
+  
+AgentBusiness()
+
+const companySearchResultArticle = document.querySelector(".foundCompanies")
+const searchBar = document.querySelector("#companySearch")
+searchBar.addEventListener("keypress", keyPressEvent => {
+        if (keyPressEvent.charCode === 13) {
+            console.log(searchBar.value)
+           // completeBusinessList.companyName.includes(keyPressEvent.target.value)
+            //const foundBusiness = completeBusinessList.find(businessname => businessname.companyName === "keyPressEvent.value")
+
+            /* const foundBusiness = () => {
+                return completeBusinessList.find(businessName => (businessName.companyName === searchBar.value)
+                )}
+               
+              */
+            const foundBusiness = completeBusinessList.find((businessName) => {
+                return businessName.companyName === searchBar.value
+            })
+            console.log(foundBusiness)
+
+            companySearchResultArticle.innerHTML = `
+                <h2>
+                ${foundBusiness.companyName}
+                </h2>
+                <section>
+                ${foundBusiness.addressFullStreet}
+
+                </section>
+                <section>
+                ${foundBusiness.addressCity},
+                ${foundBusiness.addressStateCode}
+                ${foundBusiness.addressZipCode}
+                </section>
+            `;
+        }
+        
+    });
