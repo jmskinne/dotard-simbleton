@@ -1,0 +1,37 @@
+:root {
+    font-family: 'Merriweather', serif;
+}
+
+.container {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
+
+.container-left,
+.container-middle,
+.container-right {
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.businessOrg,
+.businessList-newYork
+.businessList-manufacturing {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid black;
+}
+
+
+
+
+    
+    
+
+
+
+
