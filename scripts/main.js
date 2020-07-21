@@ -146,11 +146,14 @@ const AgentWeb = (agentArray) => {
   
 AgentBusiness()
 
+const businessFind = completeBusinessList.map((businessArray) => businessArray.companyName)
+
 const companySearchResultArticle = document.querySelector(".foundCompanies")
-const searchBar = document.querySelector("#companySearch")
-searchBar.addEventListener("keypress", keyPressEvent => {
+document
+    .querySelector("#companySearch")
+    .addEventListener("keypress", keyPressEvent => {
         if (keyPressEvent.charCode === 13) {
-            console.log(searchBar.value)
+            
            // completeBusinessList.companyName.includes(keyPressEvent.target.value)
             //const foundBusiness = completeBusinessList.find(businessname => businessname.companyName === "keyPressEvent.value")
 
@@ -158,11 +161,13 @@ searchBar.addEventListener("keypress", keyPressEvent => {
                 return completeBusinessList.find(businessName => (businessName.companyName === searchBar.value)
                 )}
                
-              */
-            const foundBusiness = completeBusinessList.find((businessName) => {
+              
+             const foundBusiness = completeBusinessList.find((businessName) => {
                 return businessName.companyName === searchBar.value
             })
             console.log(foundBusiness)
+            */
+           const foundBusiness = (businessesArray businessFind.includes(keyPressEvent.value)
 
             companySearchResultArticle.innerHTML = `
                 <h2>
@@ -181,3 +186,5 @@ searchBar.addEventListener("keypress", keyPressEvent => {
         }
         
     });
+
+    foundBusiness()
