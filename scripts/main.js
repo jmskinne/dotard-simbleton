@@ -1,57 +1,7 @@
-import {businessCollection } from "./BusinessProvider.js"
-
 
 const completeBusinessList = businessCollection()
 
 
-
-/* 
-keys:
-companyName
-addressFullStreet
-addressCity
-addressStateCode
-addressZipCode
-
-
-
-
-
-completeBusinessList.forEach((item) => {
-    console.log(item.companyName, item.addressFullStreet)
-})
-
-*/
-//move to BusinessList.js -- @BusinessList.js import BusinessProvider and Business.js
-const htmlTarget = document.querySelector(".activeBusinesses")
-
-const BusinessTime = () => {
-    htmlTarget.innerHTML = "<h1>Active Businesses</h1>"
-
-    completeBusinessList.forEach(
-        (businessesArray) => {
-            htmlTarget.innerHTML += businessWeb(businessesArray)
-        }
-    )
-}
-
-
-
-
-
-/* accepts businesses array to create html, move to Business.js*/
-const businessWeb = (businessesArray) => {
-    return `
-        <section class="businessOrg">
-            <div class="company__name">${businessesArray.companyName}</div>
-            <div class="address">${businessesArray.addressFullStreet}</div>
-            <div class="company__cityStZip">${businessesArray.addressCity}, ${businessesArray.addressStateCode} ${businessesArray.addressZipCode}</div>
-        </section>
-    `
-}
-
-
-//run on mainjs
 BusinessTime()
 
 //filter businesslist to give array of New York Businessness
@@ -146,45 +96,38 @@ const AgentWeb = (agentArray) => {
   
 AgentBusiness()
 
-const businessFind = completeBusinessList.map((businessArray) => businessArray.companyName)
+
+
+const businessSearch = (typedSearch) => {
+    const searching = completeBusinessList.find(business => {
+      return  business.companyName.includes(typedSearch)})
+    return searching
+}
 
 const companySearchResultArticle = document.querySelector(".foundCompanies")
-document
-    .querySelector("#companySearch")
-    .addEventListener("keypress", keyPressEvent => {
-        if (keyPressEvent.charCode === 13) {
-            
-           // completeBusinessList.companyName.includes(keyPressEvent.target.value)
-            //const foundBusiness = completeBusinessList.find(businessname => businessname.companyName === "keyPressEvent.value")
+    document
+        .querySelector("#companySearch")
+        .addEventListener("keypress", keyPressEvent => {
+            if (keyPressEvent.charCode === 13) {
+                
+            const foundBusiness = businessSearch(keyPressEvent.target.value)
 
-            /* const foundBusiness = () => {
-                return completeBusinessList.find(businessName => (businessName.companyName === searchBar.value)
-                )}
-               
-              
-             const foundBusiness = completeBusinessList.find((businessName) => {
-                return businessName.companyName === searchBar.value
-            })
-            console.log(foundBusiness)
-            */
-           const foundBusiness = (businessesArray businessFind.includes(keyPressEvent.value)
+                companySearchResultArticle.innerHTML = `
+                    <h2>
+                    ${foundBusiness.companyName}
+                    </h2>
+                    <section>
+                    ${foundBusiness.addressFullStreet}
 
-            companySearchResultArticle.innerHTML = `
-                <h2>
-                ${foundBusiness.companyName}
-                </h2>
-                <section>
-                ${foundBusiness.addressFullStreet}
-
-                </section>
-                <section>
-                ${foundBusiness.addressCity},
-                ${foundBusiness.addressStateCode}
-                ${foundBusiness.addressZipCode}
-                </section>
-            `;
+                    </section>
+                    <section>
+                    ${foundBusiness.addressCity},
+                    ${foundBusiness.addressStateCode}
+                    ${foundBusiness.addressZipCode}
+                    </section>
+                `;
         }
         
     });
 
-    foundBusiness()
+
