@@ -138,9 +138,12 @@ export const businessSearch = (typedSearch) => {
 
 export const agentsSearch = (typedSearch) => {
   const agsearching = agentsOnly.find(agents => {
-    return agents.firstName.toLowerCase().includes(typedSearch.toLowerCase())})
-  return agsearching
+    return agents.firstName.toLowerCase().includes(typedSearch.toLowerCase()) || agents.lastName.toLowerCase().includes(typedSearch.toLowerCase())
+  })
+    return agsearching
 }
+  
+
 
 
 /* export const agentsSearch = (typedSearch) => {
@@ -161,4 +164,3 @@ export const agentsSearch = (typedSearch) => {
 
   
 
-  

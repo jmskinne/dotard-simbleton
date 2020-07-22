@@ -2,7 +2,7 @@ import {NewYorkBusiness} from "./ny-businesses/nyBusinessList.js"
 import {BusinessTime} from "./BusinessList.js"
 import {ManufacturingBusiness} from "./manufacturing/manufacturingList.js"
 import {AgentBusiness} from "./agents/agentsList.js"
-import {businessSearch, agentsSearch} from "./BusinessProvider.js"
+import {businessSearch, agentsSearch, agentsOnly} from "./BusinessProvider.js"
 
 //const completeBusinessList = businessCollection()
 
@@ -104,7 +104,6 @@ const agentSearchResultArticle = document.querySelector(".foundAgents")
         }
         
 });
-
 
 
 
