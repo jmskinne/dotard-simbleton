@@ -1,109 +1,56 @@
+import {NewYorkBusiness} from "./ny-businesses/nyBusinessList.js"
+import {BusinessTime} from "./BusinessList.js"
+import {ManufacturingBusiness} from "./manufacturing/manufacturingList.js"
+import {AgentBusiness} from "./agents/agentsList.js"
+import {businessSearch, agentsSearch} from "./BusinessProvider.js"
 
-const completeBusinessList = businessCollection()
+//const completeBusinessList = businessCollection()
 
 
 BusinessTime()
 
-//filter businesslist to give array of New York Businessness
-const newYorkBusinesses = completeBusinessList.filter(businessArray => businessArray.addressStateCode === "NY")
+//move to BusinessProvider, export - filters businesslist to give array of New York Businessness
+//const newYorkBusinesses = completeBusinessList.filter(businessArray => businessArray.addressStateCode === "NY")
 
-//move to NewYorkList.js
-const newYorkHTMLTarget = document.querySelector(".state")
-
-const NewYorkBusiness = () => {
-    newYorkHTMLTarget.innerHTML = "<h2>New York Businessness</h2>"
-
-    newYorkBusinesses.forEach(
-        (newYorkArray) => {
-            newYorkHTMLTarget.innerHTML +=NYweb(newYorkArray)
-        }
-    )
-}
-
-// accepts filtered New York array to create html, move to NewYork.js
-const NYweb = (NewYorkArray) => {
-    return `
-        <article class="businessList-newYork>
-            <div class="company__name">${NewYorkArray.companyName}</div>
-            <div class="address">${NewYorkArray.addressFullStreet}</div>
-            <div class="company__cityStZip">${NewYorkArray.addressCity}, ${NewYorkArray.addressStateCode} ${NewYorkArray.addressZipCode}</div>
-        </article>
-    `
-}
 //run on main.js
 NewYorkBusiness()
 
 
-//filter business list to provide array of manufacturing businesses
-const manufacturingBusinesses = completeBusinessList.filter(businessArray => businessArray.companyIndustry === "Manufacturing")
+//move to BusinessProvider, filter business list to provide array of manufacturing businesses
+//const manufacturingBusinesses = completeBusinessList.filter(businessArray => businessArray.companyIndustry === "Manufacturing")
 
-//move to manufacturing.js
-const manufacturingHTMLTarget = document.querySelector(".manufacturing")
 
-const ManufacturingBusiness = () => {
-    manufacturingHTMLTarget.innerHTML = "<h2>Manufacturing Businesses</h2>"
-    manufacturingBusinesses.forEach(
-        (manufacturingArray) => {
-            manufacturingHTMLTarget.innerHTML += ManuWeb(manufacturingArray)
-        }
-    )
-}
 
-const ManuWeb = (manufacturingArray) => {
-    return `
-        <article class="businessList-manufacturing">
-            <div class="company__name">${manufacturingArray.companyName}</div>
-            <div class="address">${manufacturingArray.addressFullStreet}</div>
-            <div class="company__cityStZip">${manufacturingArray.addressCity}, ${manufacturingArray.addressStateCode} ${manufacturingArray.addressZipCode}</div>
-    </article>
-    `
-}
+
 
 ManufacturingBusiness()
 
 
 //beginning agent
-
-const agentsOnly = completeBusinessList.map(businessArray => ({ 
+//to BusinessProvider
+/*const agentsOnly = completeBusinessList.map(businessArray => ({ 
     firstName : businessArray.purchasingAgent.nameFirst,
     lastName : businessArray.purchasingAgent.nameLast,
     company : businessArray.companyName,
     phone : businessArray.phoneWork
 
     
-  }))
+}))
+*/
 
-const agentHTMLTarget = document.querySelector(".agent")
 
-const AgentBusiness = () => {
-    agentHTMLTarget.innerHTML = "<h2>Agent Info<h2>"
-    agentsOnly.forEach(
-        (agentArray) => {
-            agentHTMLTarget.innerHTML += AgentWeb(agentArray)
-        }
-    )
-}
 
-const AgentWeb = (agentArray) => {
-    return `
-        <article class="agents">
-            <div class="agent__name">${agentArray.firstName} ${agentArray.lastName}</div>
-            <div class="agent__company>${agentArray.company}</div>
-            <div class="agent__phone>${agentArray.phone}</div>
-        </article>
-    `
-}
   
 AgentBusiness()
 
 
 
-const businessSearch = (typedSearch) => {
+/*const businessSearch = (typedSearch) => {
     const searching = completeBusinessList.find(business => {
       return  business.companyName.includes(typedSearch)})
     return searching
 }
-
+*/
 const companySearchResultArticle = document.querySelector(".foundCompanies")
     document
         .querySelector("#companySearch")
@@ -128,6 +75,36 @@ const companySearchResultArticle = document.querySelector(".foundCompanies")
                 `;
         }
         
-    });
+});
+
+
+const agentSearchResultArticle = document.querySelector(".foundAgents")
+    document
+        .querySelector("#agentSearch")
+        .addEventListener("keypress", keyPressEvent => {
+            if (keyPressEvent.charCode === 13) {
+                
+            const foundAgent = agentsSearch(keyPressEvent.target.value)
+
+                agentSearchResultArticle.innerHTML = `
+                    <h2>
+                    ${foundAgent.firstName} ${foundAgent.lastName}
+                    </h2>
+                    <section>
+                    ${foundAgent.company}
+                    </section>
+                    <section>
+                    ${foundAgent.phone}
+
+                    </section>
+                    <section>
+                    
+                    </section>
+                `;
+        }
+        
+});
+
+
 
 

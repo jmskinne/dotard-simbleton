@@ -1,4 +1,4 @@
-const businessWeb = (businessesArray) => {
+export const businessWeb = (businessesArray) => {
     return `
         <section class="businessOrg">
             <div class="company__name">${businessesArray.companyName}</div>

@@ -114,15 +114,43 @@ const businesses = [
   export const businessCollection = () => {
       return businesses.slice()
   }
+  
+  export const completeBusinessList = businessCollection()
+  //done
+  export const newYorkBusinesses = completeBusinessList.filter(businessArray => businessArray.addressStateCode === "NY")
+  //done
+  export const manufacturingBusinesses = completeBusinessList.filter(businessArray => businessArray.companyIndustry === "Manufacturing")
+  //done
+  export const agentsOnly = completeBusinessList.map(businessArray => ({ 
+    firstName : businessArray.purchasingAgent.nameFirst,
+    lastName : businessArray.purchasingAgent.nameLast,
+    company : businessArray.companyName,
+    phone : businessArray.phoneWork
 
-  
- 
-  
-
-  
-  
-  
     
+}))
+//done
+export const businessSearch = (typedSearch) => {
+  const searching = completeBusinessList.find(business => {
+    return  business.companyName.toLowerCase().includes(typedSearch.toLowerCase())})
+  return searching
+}
+
+export const agentsSearch = (typedSearch) => {
+  const agsearching = agentsOnly.find(agents => {
+    return agents.firstName.toLowerCase().includes(typedSearch.toLowerCase())})
+  return agsearching
+}
+
+
+/* export const agentsSearch = (typedSearch) => {
+  const agsearching = agentsOnly.find(agents => {
+    return agents.toLowerCase().includes(typedSearch.toLowerCase())
+  })
+  return agsearching
+}
+*/
+
 
   
 
